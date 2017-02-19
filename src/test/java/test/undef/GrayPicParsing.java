@@ -1,4 +1,4 @@
-package undef;
+package test.undef;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
