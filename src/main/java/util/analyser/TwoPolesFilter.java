@@ -8,12 +8,13 @@ public class TwoPolesFilter implements IFilter{
 	}
 
 	public double filter(double distance){
-		return filter(threshold);
+		return distance>this.threshold?255d:0d;
+//		return filter(threshold);
 	}
-	public double filter(double distance, double threshold) {
+	public double filter(double distance, double t) {
 		// TODO Auto-generated method stub
 		
-		return distance>threshold?255:0;
+		return distance>t?255d:0d;
 	}
 
 	public boolean ifRemain(double value) {

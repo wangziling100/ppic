@@ -2,6 +2,8 @@ package util.analyser;
 
 import java.awt.Point;
 
+import image.GrayImageArray;
+
 /**
  * output = analyse (input)
  * @author xingbo
@@ -15,36 +17,36 @@ public class SimpleAnalyser extends imageAnalyser{
 	}
 
 	@Override
-	public int[][] analyse(double threshold) {
+	public GrayImageArray analyse(double threshold) {
 		// TODO Auto-generated method stub
 		MaxDistance md = new MaxDistance();
 		TwoPolesFilter tf = new TwoPolesFilter(threshold);
 		ThreeXThreeWin tw = new ThreeXThreeWin();
+		int width = input.getWidth();
+		int height = input.getHeight();
+		double[] calcData = new double[tw.getLength()];
 		
-		int x=0, y=0;
-		for(int[] i1:input){
-			for(int i2:i1){
-				//search origin
-				Point origin = new Point(x, y);
-				double[] calcSet = new double[tw.getLength()];
-				//traverse mask window
-				for(int m=0;m<tw.getLength();m++){
-					int mw = m/tw.getWidth();
-					int mh = m/tw.getHeight();
-					int xoffset = origin.x + mw;
-					int yoffset = origin.y + mh;
-					calcSet[m] = input[xoffset][yoffset];
+		// traverse the gray image array
+		for(int x=0; x<width; x++){
+			for(int y=0; y<height; y++){
+				// get data set to calc distance
+				for(int m=0; m<tw.getWidth(); m++){
+					for(int n=0; n<tw.getHeight(); n++){
+						int indexOfCalcData = tw.getIndex(m, n);
+						calcData[indexOfCalcData] = input.getValue(x+m, y+n);
+					}
 				}
+				
 				// calc distance
-				double distance = md.getDistance(calcSet);
-				// filter input set
-				output[origin.x][origin.y] = (int)tf.filter(distance);
-				y++;
+				double distance = md.getDistance(calcData);
+				
+				// figure out output
+				output.setValue(x, y, (int)tf.filter(distance));
+			
 			}
-			x++;
 		}
 		
-		return output;
+		return this.output;
 	}
 	
 }

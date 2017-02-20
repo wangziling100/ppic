@@ -20,8 +20,11 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import image.GrayImageArray;
+import util.analyser.SimpleAnalyser;
 import util.common.CommonOpts;
 import util.log.MyLogger;
+import util.transform.Common;
 import util.transform.IO;
 
 public class GrayPicParsing{
@@ -39,7 +42,7 @@ public class GrayPicParsing{
 		/**********************************
 		 * 			preprocessing
 		 */
-		MyLogger.setLevel(MyLogger.DEBUG);
+		MyLogger.setLevel(MyLogger.INFO);
 		final MyLogger logger = new MyLogger(GrayPicParsing.class);
 		
 		Options options = new Options();
@@ -103,16 +106,29 @@ public class GrayPicParsing{
 		
 		images = IO.readImageAsBufferedGrayImage(ifilename);
 		int[][] grayArray = IO.readImageAsArray(ifilename);
+		SimpleAnalyser analyser = new SimpleAnalyser(grayArray);
+		int threshold;
+		GrayImageArray gia;
+		BufferedImage bi = null;
+		for(threshold=1; threshold<=255; threshold++){
+			
+			gia = analyser.analyse(threshold);
+			bi = Common.grayImageArrayToBufferedImage(analyser.analyse(threshold));
+			
+			/*****************************************
+			 * 			write image in file
+			 */
+			String prefix = ofilename.substring(0,ofilename.lastIndexOf('.'));
+			String suffix = ofilename.substring(ofilename.lastIndexOf('.')+1);
+			String s = prefix+threshold+'.'+suffix;
+			IO.writeBufferedGrayImageAsFile(s, bi);
+		}
+		
 		for(int[] rows:grayArray){
 			for(int point:rows){
 				logger.debug(point+"");
 			}
 		}
-		
-		/*****************************************
-		 * 			write image in file
-		 */
-
 		
 		IO.writeBufferedGrayImagesAsFile(ofilename, images);
 	      

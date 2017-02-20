@@ -2,6 +2,7 @@ package util.analyser;
 
 public class ThreeXThreeWin implements ICalcWin{
 	
+	
 	int indexOfOrigin = 0;
 	public ThreeXThreeWin() {
 		// TODO Auto-generated constructor stub
@@ -25,6 +26,11 @@ public class ThreeXThreeWin implements ICalcWin{
 	public void setOrigin(int index) {
 		// TODO Auto-generated method stub
 		this.indexOfOrigin = index;
+	}
+	
+	public int getIndex(int x, int y){
+		int index = x*3 + y;
+		return index;
 	}
 	
 }

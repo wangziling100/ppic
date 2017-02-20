@@ -1,12 +1,14 @@
 package util.analyser;
 
+import image.GrayImageArray;
+
 public abstract class imageAnalyser{
-	int[][] input;
-	int[][] output;
+	GrayImageArray input;
+	GrayImageArray output;
 	
 	public imageAnalyser(int[][] data){
-		this.input = data.clone();
-		this.output = data.clone();
+		this.input =  new GrayImageArray(data);
+		this.output = new GrayImageArray(data);
 	}
-	public abstract int[][] analyse(double threshold);
+	public abstract GrayImageArray analyse(double threshold);
 }
