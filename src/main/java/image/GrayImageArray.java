@@ -63,6 +63,10 @@ public class GrayImageArray{
 		array.add(value);
 	}
 	
+	public List getArray(){
+		return array;
+	}
+	
 	public static void main(String[] args){
 		
 		MyLogger.setLevel(MyLogger.DEBUG);
@@ -77,4 +81,6 @@ public class GrayImageArray{
 			}
 		}
 	} 
+	
+	
 }

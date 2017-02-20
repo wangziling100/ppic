@@ -110,7 +110,10 @@ public class GrayPicParsing{
 		int threshold;
 		GrayImageArray gia;
 		BufferedImage bi = null;
-		for(threshold=1; threshold<=255; threshold++){
+		analyser.normalise(analyser.calcDistanceArray());
+		int upper = analyser.getUpper();
+		int lower = analyser.getLower();
+		for(threshold=lower; threshold<=upper; threshold++){
 			
 			gia = analyser.analyse(threshold);
 			bi = Common.grayImageArrayToBufferedImage(analyser.analyse(threshold));

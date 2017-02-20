@@ -24,7 +24,7 @@ public class TwoPolesFilter implements IFilter{
 
 	public double layerFilter(double distance, double upper, double lower) {
 		// TODO Auto-generated method stub
-		return 0;
+		return (distance<upper && distance>lower)?255d:0d;
 	}
 	
 }

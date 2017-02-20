@@ -28,7 +28,7 @@ public class Common {
 				final int g = (color >> 8) & 0xff;
 				final int b = color & 0xff;
 				int gray = (int) (0.3 * r + 0.59 * g + 0.11 * b);
-				int newPixel = colorToRGB(255, gray, gray, gray);
+				int newPixel = colorToRGB(0, gray, gray, gray);
 				grayBI.setRGB(x, y, newPixel);
 			}
 		}
@@ -95,7 +95,9 @@ public class Common {
 		
 		for(int i=0; i<width; i++){
 			for(int j=0; j<height; j++){
-				bi.setRGB(i, j, gia.getValue(i, j));
+				int gray = gia.getValue(i, j);
+				int newPixel = colorToRGB(0, gray, gray, gray);
+				bi.setRGB(i, j, newPixel);
 			}
 		}
 		return bi;
