@@ -1,6 +1,15 @@
 package util.transform;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Iterator;
+
+import javax.imageio.ImageIO;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
+
+import image.GrayImageArray;
 
 public class Common {
 	public static BufferedImage parseGrayImage(BufferedImage bi) {
@@ -76,5 +85,19 @@ public class Common {
 			}
 		}
 		return result;
+	}
+	
+	public static BufferedImage grayImageArrayToBufferedImage(GrayImageArray gia){
+		int width = gia.getWidth();
+		int height = gia.getHeight();
+		BufferedImage bi = new BufferedImage
+				(width, height,BufferedImage.TYPE_BYTE_GRAY );
+		
+		for(int i=0; i<width; i++){
+			for(int j=0; j<height; j++){
+				bi.setRGB(i, j, gia.getValue(i, j));
+			}
+		}
+		return bi;
 	}
 }

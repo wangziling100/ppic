@@ -1,6 +1,7 @@
 package util.transform;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,7 +9,9 @@ import java.util.Iterator;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
+import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageInputStream;
+import javax.imageio.stream.ImageOutputStream;
 
 public class IO{
 	
@@ -100,6 +103,43 @@ public class IO{
 
 	}
 	
+	public static void writeBufferedGrayImagesAsFile(String filename, BufferedImage[] bi){
+		
+		String osuffix = filename.substring(filename.lastIndexOf('.') + 1);
+		Iterator imageWriters = ImageIO.getImageWritersByFormatName(osuffix);
+	    ImageWriter imageWriter = (ImageWriter) imageWriters.next();
+	    File file = new File(filename);
+	    ImageOutputStream ios;
+		try {
+			ios = ImageIO.createImageOutputStream(file);
+			imageWriter.setOutput(ios);
+			for(BufferedImage b:bi){
+				imageWriter.write(b);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void writeBufferedGrayImageAsFile(String filename, BufferedImage bi) {
+
+		String osuffix = filename.substring(filename.lastIndexOf('.') + 1);
+		Iterator imageWriters = ImageIO.getImageWritersByFormatName(osuffix);
+		ImageWriter imageWriter = (ImageWriter) imageWriters.next();
+		File file = new File(filename);
+		ImageOutputStream ios;
+		try {
+			ios = ImageIO.createImageOutputStream(file);
+			imageWriter.setOutput(ios);
+
+			imageWriter.write(bi);
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 
 }
