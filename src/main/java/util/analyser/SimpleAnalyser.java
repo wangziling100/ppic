@@ -1,6 +1,5 @@
 package util.analyser;
 
-import java.awt.Point;
 
 import image.GrayImageArray;
 
@@ -47,6 +46,12 @@ public class SimpleAnalyser extends imageAnalyser{
 		}
 		
 		return this.output;
+	}
+
+	@Override
+	public GrayImageArray normalise(GrayImageArray gia) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
