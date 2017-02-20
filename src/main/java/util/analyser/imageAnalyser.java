@@ -11,4 +11,5 @@ public abstract class imageAnalyser{
 		this.output = new GrayImageArray(data);
 	}
 	public abstract GrayImageArray analyse(double threshold);
+	public abstract GrayImageArray normalise(GrayImageArray gia);
 }

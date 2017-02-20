@@ -21,5 +21,10 @@ public class TwoPolesFilter implements IFilter{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	public double layerFilter(double distance, double upper, double lower) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 }
